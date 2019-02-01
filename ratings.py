@@ -47,7 +47,9 @@ def add_restaurant_rating():
     #Get user input
     user_restaurant = input('Add the name of the restaurant you wish to rate: ')
     user_rating = input('Rate {} out of 5 stars: '.format(user_restaurant))
-
+    if user_rating is not range(1,6):
+            print('Rating must be between 1 and 5. Try again')
+            user_rating = input('Rate {} out of 5 stars: '.format(user_restaurant))
     #call function to return list of restaurants from earlier
     restaurant_list = restaurant_ratings('scores.txt')
 
@@ -55,7 +57,7 @@ def add_restaurant_rating():
     restaurant_list.append([user_restaurant.capitalize(), user_rating])
     
     print('*' * 80)
-    
+
     #call sorting function on list
     sort_restaurants(restaurant_list)
 
