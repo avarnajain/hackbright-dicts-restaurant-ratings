@@ -34,12 +34,9 @@ def sort_restaurants(restaurant_list):
     #print restaurants and their rating
     for restaurant, rating in restaurant_dict.items():
         print(restaurant, 'is rated at', rating)
+
+    user_choice()
     
-
-#call function to open and parse file, and then sort it
-sort_restaurants(restaurant_ratings('scores.txt'))
-
-print('*' * 80)
 
 def add_restaurant_rating():
     """Get user to add and rate restauant and print entire ratings list"""
@@ -47,8 +44,8 @@ def add_restaurant_rating():
     #Get user input
     user_restaurant = input('Add the name of the restaurant you wish to rate: ')
     user_rating = input('Rate {} out of 5 stars: '.format(user_restaurant))
-    if user_rating is not range(1,6):
-            print('Rating must be between 1 and 5. Try again')
+    if user_rating not in range(1, 6):
+            print('Rating must be between 1 and 5. Try again!')
             user_rating = input('Rate {} out of 5 stars: '.format(user_restaurant))
     #call function to return list of restaurants from earlier
     restaurant_list = restaurant_ratings('scores.txt')
@@ -56,13 +53,23 @@ def add_restaurant_rating():
     #add user input to list
     restaurant_list.append([user_restaurant.capitalize(), user_rating])
     
-    print('*' * 80)
-
     #call sorting function on list
     sort_restaurants(restaurant_list)
 
+def user_choice():
+    user_choice = input('Select an option: \n1. Would you like to see all the ratings? \n2. Would you like to add a rating \n3. Would you like to quit? \nType choice here: ')
+    if user_choice == '1':
+        print('*' * 80)
+        sort_restaurants(restaurant_ratings('scores.txt'))
+    elif user_choice == '2':
+        print('*' * 80)
+        add_restaurant_rating()
+    elif user_choice == '3':
+        print('Goodbye!')
+        exit()
+    else:
+        print('Try again. Your choice should be either 1, 2 or 3.')
+        user_choice = input('Select an option: \n1. Would you like to see all the ratings? \n2. Would you like to add a rating \n3. Would you like to quit? \nType choice here: ')
 
-print('*' * 80)
 
-#ask for user input
-add_restaurant_rating()
+user_choice()
